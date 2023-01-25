@@ -55,11 +55,7 @@ WantedBy=multi-user.target
 EOF
 
 %check
-ret_val="$(make check | grep 'All tests passed without errors!')"
-if [[ -z $ret_val ]]; then
-    ret_val="$(make check | grep 'All tests passed without errors!')"
-fi
-
+make check
 
 %pre
 getent group %{name} &> /dev/null || \
