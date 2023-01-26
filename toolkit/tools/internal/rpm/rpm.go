@@ -272,7 +272,7 @@ func BuildRPMFromSRPM(srpmFile, outArch string, defines map[string]string, extra
 		retVal = shell.ExecuteLive(squashErrors, rpmBuildProgram, args...)		
 	}
 	logger.Log.Debugf("osamatest: retVal type is (%T)", retVal)
-	return shell.ExecuteLive(squashErrors, rpmBuildProgram, args...)
+	return retVal
 }
 
 // GenerateSRPMFromSPEC generates an SRPM for the given SPEC file
