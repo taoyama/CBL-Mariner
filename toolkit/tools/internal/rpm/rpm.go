@@ -259,10 +259,11 @@ func BuildRPMFromSRPM(srpmFile, outArch string, defines map[string]string, extra
 	args := formatCommandArgs(extraArgs, srpmFile, queryFormat, defines)
 	retries := 0
 	for i, x := range args {
-		if x == "--nocheck" {
-			retries = 2
-			break
-		}
+		logger.Log.Debugf("osamatest: (%s) (%s)", i, x)
+		// if x == "--nocheck" {
+		// 	retries = 2
+		// 	break
+		// }
 	}
 	logger.Log.Debugf("osamatest: retries = (%s)", retries)
 	retVal := shell.ExecuteLive(squashErrors, rpmBuildProgram, args...)
