@@ -257,7 +257,13 @@ func BuildRPMFromSRPM(srpmFile, outArch string, defines map[string]string, extra
 	}
 
 	args := formatCommandArgs(extraArgs, srpmFile, queryFormat, defines)
-	logger.Log.Debugf("osamatest: args is (%T)", args)
+	retries := 0
+	if args["WithCheckDefine"] == "1" {
+		retries = 2
+	}
+	logger.Log.Debugf("osamatest: retries = (%s)", retries)
+	retVal := shell.ExecuteLive(squashErrors, rpmBuildProgram, args...)
+	logger.Log.Debugf("osamatest: retVal type is (%T), retVal")
 	return shell.ExecuteLive(squashErrors, rpmBuildProgram, args...)
 }
 
