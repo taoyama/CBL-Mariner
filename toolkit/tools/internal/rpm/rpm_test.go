@@ -36,13 +36,14 @@ func TestExclusiveArchCheckShouldSucceedForSupportedArchitectures(t *testing.T) 
 	specFilePath := filepath.Join(specsDir, "supported_unsupported_architectures.spec")
 
 	matches, err := SpecExclusiveArchIsCompatible(specFilePath, specsDir, buildArch, defines)
-	if (defines["definesWithCheckKey"] == "1" && assert.Error(t, err)) {
-		max_retries := 2
-		for max_retries > 0 {
-			max_retries--
-			matches, err = SpecExclusiveArchIsCompatible(specFilePath, specsDir, buildArch, defines)
-		}
-	}
+	// if (defines["definesWithCheckKey"] == "1" && assert.Error(t, err)) {
+	// 	max_retries := 2
+	// 	for max_retries > 0 {
+	// 		max_retries--
+	// 		matches, err = SpecExclusiveArchIsCompatible(specFilePath, specsDir, buildArch, defines)
+	// 	}
+	// }
+	assert.NoError(t, err)
 	assert.True(t, matches)
 }
 
@@ -50,13 +51,14 @@ func TestExclusiveArchCheckShouldSucceedForNoExclusiveArch(t *testing.T) {
 	specFilePath := filepath.Join(specsDir, "no_exclusive_architecture.spec")
 
 	matches, err := SpecExclusiveArchIsCompatible(specFilePath, specsDir, buildArch, defines)
-	if (defines["definesWithCheckKey"] == "1" && assert.Error(t, err)) {
-		max_retries := 2
-		for max_retries > 0 {
-			max_retries--
-			matches, err = SpecExclusiveArchIsCompatible(specFilePath, specsDir, buildArch, defines)
-		}
-	}
+	// if (defines["definesWithCheckKey"] == "1" && assert.Error(t, err)) {
+	// 	max_retries := 2
+	// 	for max_retries > 0 {
+	// 		max_retries--
+	// 		matches, err = SpecExclusiveArchIsCompatible(specFilePath, specsDir, buildArch, defines)
+	// 	}
+	// }
+	assert.NoError(t, err)
 	assert.True(t, matches)
 }
 
