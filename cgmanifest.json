@@ -466,7 +466,7 @@
         "other": {
           "name": "apache-parent",
           "version": "21",
-          "downloadUrl": "http://repo1.maven.org/maven2/org/apache/apache/21/apache-21-source-release.zip"
+          "downloadUrl": "https://repo1.maven.org/maven2/org/apache/apache/21/apache-21-source-release.zip"
         }
       }
     },
@@ -2799,7 +2799,7 @@
         "other": {
           "name": "driverctl",
           "version": "0.111",
-          "downloadUrl": "https://gitlab.com/driverctl/driverctl/repository/archive.tar.gz?ref=0.111"
+          "downloadUrl": "https://gitlab.com/driverctl/driverctl/~/archive/0.111/driverctl-0.111.tar.gz"
         }
       }
     },
@@ -9542,7 +9542,7 @@
         "other": {
           "name": "libmwaw",
           "version": "0.3.17",
-          "downloadUrl": "http://downloads.sourceforge.net/libmwaw/libmwaw-0.3.17.tar.xz"
+          "downloadUrl": "https://downloads.sourceforge.net/libmwaw/libmwaw-0.3.17.tar.xz"
         }
       }
     },
@@ -9892,7 +9892,7 @@
         "other": {
           "name": "libpinyin",
           "version": "2.3.0",
-          "downloadUrl": "http://downloads.sourceforge.net/libpinyin/libpinyin/libpinyin-2.3.0.tar.gz"
+          "downloadUrl": "https://downloads.sourceforge.net/libpinyin/libpinyin/libpinyin-2.3.0.tar.gz"
         }
       }
     },
@@ -12162,7 +12162,7 @@
         "other": {
           "name": "maven-parent",
           "version": "27",
-          "downloadUrl": "http://repo1.maven.org/maven2/org/apache/maven/maven-parent/27/maven-parent-27-source-release.zip"
+          "downloadUrl": "https://repo1.maven.org/maven2/org/apache/maven/maven-parent/27/maven-parent-27-source-release.zip"
         }
       }
     },
@@ -14915,7 +14915,7 @@
         "other": {
           "name": "pcp",
           "version": "5.1.1",
-          "downloadUrl": "https://bintray.com/artifact/download/pcp/source/pcp-5.1.1.src.tar.gz"
+          "downloadUrl": "https://github.com/performancecopilot/pcp/archive/refs/tags/5.1.1.tar.gz"
         }
       }
     },
