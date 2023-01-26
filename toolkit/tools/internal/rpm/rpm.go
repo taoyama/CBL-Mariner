@@ -258,7 +258,7 @@ func BuildRPMFromSRPM(srpmFile, outArch string, defines map[string]string, extra
 
 	args := formatCommandArgs(extraArgs, srpmFile, queryFormat, defines)
 	retries := 0
-	for x := range args {
+	for i, x := range args {
 		if x == "--nocheck" {
 			retries = 2
 			break
