@@ -38,7 +38,7 @@ func TestExclusiveArchCheckShouldSucceedForSupportedArchitectures(t *testing.T) 
 	matches, err := SpecExclusiveArchIsCompatible(specFilePath, specsDir, buildArch, defines)
 	if (defines.definesWithCheckKey.EqualValues("1")) {
 		max_retries = 2
-		while (assert.Error(t, err) && max_retries > 0) {
+		for (assert.Error(t, err) && max_retries > 0) {
 			max_retries--
 			matches, err := SpecExclusiveArchIsCompatible(specFilePath, specsDir, buildArch, defines)
 		}
@@ -52,7 +52,7 @@ func TestExclusiveArchCheckShouldSucceedForNoExclusiveArch(t *testing.T) {
 	matches, err := SpecExclusiveArchIsCompatible(specFilePath, specsDir, buildArch, defines)
 	if (defines.definesWithCheckKey.EqualValues("1")) {
 		max_retries = 2
-		while (assert.Error(t, err) && max_retries > 0) {
+		for (assert.Error(t, err) && max_retries > 0) {
 			max_retries--
 			matches, err := SpecExclusiveArchIsCompatible(specFilePath, specsDir, buildArch, defines)
 		}
