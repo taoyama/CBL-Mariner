@@ -102,6 +102,12 @@ func main() {
 		logger.Log.Fatalf("Value in --build-attempts must be greater than zero. Found %d", *buildAttempts)
 	}
 
+	numAttempts := *buildAttempts
+	if *runCheck != nil && *buildAttempts < 3{
+		logger.Log.Debugf("Running \%check means at least 3 attempts to pass build & tests")
+		numAttempts = 3		
+	}
+
 	ignoredPackages := exe.ParseListArgument(*ignoredPackages)
 	reservedFileListFile := *reservedFileListFile
 
@@ -170,7 +176,7 @@ func main() {
 	signal.Notify(signals, unix.SIGINT, unix.SIGTERM)
 	go cancelBuildsOnSignal(signals, agent)
 
-	err = buildGraph(*inputGraphFile, *outputGraphFile, agent, *workers, *buildAttempts, *stopOnFailure, !*noCache, packageVersToBuild, packagesNamesToRebuild, ignoredPackages, reservedFiles, *deltaBuild)
+	err = buildGraph(*inputGraphFile, *outputGraphFile, agent, *workers, numAttempts, *stopOnFailure, !*noCache, packageVersToBuild, packagesNamesToRebuild, ignoredPackages, reservedFiles, *deltaBuild)
 	if err != nil {
 		logger.Log.Fatalf("Unable to build package graph.\nFor details see the build summary section above.\nError: %s", err)
 	}

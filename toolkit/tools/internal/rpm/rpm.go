@@ -257,22 +257,22 @@ func BuildRPMFromSRPM(srpmFile, outArch string, defines map[string]string, extra
 	}
 
 	args := formatCommandArgs(extraArgs, srpmFile, queryFormat, defines)
-	retries := 0
-	for i, x := range args {
-		logger.Log.Debugf("osamatest: (%d) (%s)", i, x)
-		if x == "with_check 1" {
-			retries = 2
-			break
-		}
-	}
-	logger.Log.Debugf("osamatest: retries = (%d)", retries)
-	retVal := shell.ExecuteLive(squashErrors, rpmBuildProgram, args...)
-	for retVal != nil && retries > 0 {
-		retries--
-		retVal = shell.ExecuteLive(squashErrors, rpmBuildProgram, args...)		
-	}
-	logger.Log.Debugf("osamatest: retVal type is (%T)", retVal)
-	return retVal
+	// retries := 0
+	// for i, x := range args {
+	// 	logger.Log.Debugf("osamatest: (%d) (%s)", i, x)
+	// 	if x == "with_check 1" {
+	// 		retries = 2
+	// 		break
+	// 	}
+	// }
+	// logger.Log.Debugf("osamatest: retries = (%d)", retries)
+	// retVal := shell.ExecuteLive(squashErrors, rpmBuildProgram, args...)
+	// for retVal != nil && retries > 0 {
+	// 	retries--
+	// 	retVal = shell.ExecuteLive(squashErrors, rpmBuildProgram, args...)		
+	// }
+	// logger.Log.Debugf("osamatest: retVal type is (%T)", retVal)
+	return shell.ExecuteLive(squashErrors, rpmBuildProgram, args...)
 }
 
 // GenerateSRPMFromSPEC generates an SRPM for the given SPEC file

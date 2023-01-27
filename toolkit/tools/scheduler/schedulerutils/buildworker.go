@@ -5,6 +5,7 @@ package schedulerutils
 
 import (
 	"fmt"
+	"os"
 	"path/filepath"
 	"sync"
 	"time"
@@ -195,6 +196,23 @@ func buildSRPMFile(agent buildagents.BuildAgent, buildAttempts int, srpmFile, ou
 	logBaseName := filepath.Base(srpmFile) + ".log"
 	err = retry.Run(func() (buildErr error) {
 		builtFiles, logFile, buildErr = agent.BuildPackage(srpmFile, logBaseName, outArch, dependencies)
+		if buildErr == nil {
+			logger.Log.Debugf("osamatest: logfile is (%s)", logFile)
+			file, err := os.Open(logFile)
+			if err != nil {
+				logger.Log.Debug("osamatest: logfile error")
+			}
+			defer file.Close()
+
+			scanner = bufio.NewScanner(file)
+			for scanner.Scan() {
+				currLine := scanner.Text()
+				if strings.Contains(currLine, "CHECK DONE") && strings.Contains(currLine, "EXIT STATUS") {
+					buildErr = currLine
+					break
+				}
+			}
+		}
 		return
 	}, buildAttempts, retryDuration)
 
