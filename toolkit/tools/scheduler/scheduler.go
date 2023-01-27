@@ -102,12 +102,6 @@ func main() {
 		logger.Log.Fatalf("Value in --build-attempts must be greater than zero. Found %d", *buildAttempts)
 	}
 
-	numAttempts := *buildAttempts
-	if *runCheck != nil && *buildAttempts < 3{
-		logger.Log.Debugf("Running \%check means at least 3 attempts to pass build & tests")
-		numAttempts = 3		
-	}
-
 	ignoredPackages := exe.ParseListArgument(*ignoredPackages)
 	reservedFileListFile := *reservedFileListFile
 
@@ -175,6 +169,12 @@ func main() {
 	signals := make(chan os.Signal, 1)
 	signal.Notify(signals, unix.SIGINT, unix.SIGTERM)
 	go cancelBuildsOnSignal(signals, agent)
+
+	numAttempts := *buildAttempts
+	if *runCheck && (*buildAttempts < 3) {
+		logger.Log.Debugf("osamatest: Running %%check means at least 3 attempts to pass build & tests")
+		numAttempts = 3		
+	}
 
 	err = buildGraph(*inputGraphFile, *outputGraphFile, agent, *workers, numAttempts, *stopOnFailure, !*noCache, packageVersToBuild, packagesNamesToRebuild, ignoredPackages, reservedFiles, *deltaBuild)
 	if err != nil {

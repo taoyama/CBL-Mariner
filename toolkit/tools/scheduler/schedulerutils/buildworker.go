@@ -4,9 +4,12 @@
 package schedulerutils
 
 import (
+	"bufio"
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 	"sync"
 	"time"
 
@@ -204,11 +207,11 @@ func buildSRPMFile(agent buildagents.BuildAgent, buildAttempts int, srpmFile, ou
 			}
 			defer file.Close()
 
-			scanner = bufio.NewScanner(file)
+			scanner := bufio.NewScanner(file)
 			for scanner.Scan() {
 				currLine := scanner.Text()
 				if strings.Contains(currLine, "CHECK DONE") && strings.Contains(currLine, "EXIT STATUS") {
-					buildErr = currLine
+					buildErr = errors.New(currLine)
 					break
 				}
 			}
