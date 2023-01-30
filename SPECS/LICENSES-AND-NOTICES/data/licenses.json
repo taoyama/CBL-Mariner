@@ -565,6 +565,7 @@
                 "libdbi-drivers",
                 "libdbusmenu",
                 "libdc1394",
+                "libdeflate",
                 "libdmx",
                 "libdnf",
                 "libdrm",
