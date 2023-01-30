@@ -98,8 +98,13 @@ func main() {
 		logger.Log.Debugf("No worker count supplied, discovered %d logical CPUs.", *workers)
 	}
 
-	if *buildAttempts <= 0 {
+	numAttempts := *buildAttempts
+	logger.Log.Debugf("osamatest: runCheck is type (%T), numAttempts is (%d)", *runCheck, numAttempts)
+	if numAttempts <= 0 {
 		logger.Log.Fatalf("Value in --build-attempts must be greater than zero. Found %d", *buildAttempts)
+	} else if *runCheck && (numAttempts < 3) {
+		numAttempts = 3
+		logger.Log.Debug("Running check means at least 3 attempts to build & pass tests")
 	}
 
 	ignoredPackages := exe.ParseListArgument(*ignoredPackages)
@@ -170,13 +175,13 @@ func main() {
 	signal.Notify(signals, unix.SIGINT, unix.SIGTERM)
 	go cancelBuildsOnSignal(signals, agent)
 
-	numAttempts := *buildAttempts
-	if buildAgentConfig.RunCheck && (numAttempts < 3) {
-		logger.Log.Debugf("osamatest: Running %%check means at least 3 attempts to pass build & tests")
-		numAttempts = 3		
-	} else {
-		logger.Log.Debugf("osamatest: numAttempts is (%d) and buildAgentConfig.RunCheck is (%t)", numAttempts, buildAgentConfig.RunCheck)
-	}
+	// numAttempts := *buildAttempts
+	// if buildAgentConfig.RunCheck && (numAttempts < 3) {
+	// 	logger.Log.Debugf("osamatest: Running %%check means at least 3 attempts to pass build & tests")
+	// 	numAttempts = 3
+	// } else {
+	// 	logger.Log.Debugf("osamatest: numAttempts is (%d) and buildAgentConfig.RunCheck is (%t)", numAttempts, buildAgentConfig.RunCheck)
+	// }
 
 	err = buildGraph(*inputGraphFile, *outputGraphFile, agent, *workers, numAttempts, *stopOnFailure, !*noCache, packageVersToBuild, packagesNamesToRebuild, ignoredPackages, reservedFiles, *deltaBuild)
 	if err != nil {
