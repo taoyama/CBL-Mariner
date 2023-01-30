@@ -171,9 +171,11 @@ func main() {
 	go cancelBuildsOnSignal(signals, agent)
 
 	numAttempts := *buildAttempts
-	if *runCheck && (*buildAttempts < 3) {
+	if buildAgentConfig.RunCheck && (numAttempts < 3) {
 		logger.Log.Debugf("osamatest: Running %%check means at least 3 attempts to pass build & tests")
 		numAttempts = 3		
+	} else {
+		logger.Log.Debugf("osamatest: numAttempts is (%d) and buildAgentConfig.RunCheck is (%t)", numAttempts, buildAgentConfig.RunCheck)
 	}
 
 	err = buildGraph(*inputGraphFile, *outputGraphFile, agent, *workers, numAttempts, *stopOnFailure, !*noCache, packageVersToBuild, packagesNamesToRebuild, ignoredPackages, reservedFiles, *deltaBuild)

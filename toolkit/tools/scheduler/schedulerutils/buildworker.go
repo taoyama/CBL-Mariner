@@ -210,7 +210,7 @@ func buildSRPMFile(agent buildagents.BuildAgent, buildAttempts int, srpmFile, ou
 			scanner := bufio.NewScanner(file)
 			for scanner.Scan() {
 				currLine := scanner.Text()
-				if strings.Contains(currLine, "CHECK DONE") && strings.Contains(currLine, "EXIT STATUS") {
+				if strings.Contains(currLine, "CHECK DONE") && !strings.Contains(currLine, "EXIT STATUS 0") {
 					buildErr = errors.New(currLine)
 					break
 				}
